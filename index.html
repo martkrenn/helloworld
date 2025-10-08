@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello Martin</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      background: radial-gradient(circle at top, #d8ecff, #f9f9f9 45%);
+      min-height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+
+    main {
+      text-align: center;
+      padding: 2rem 3rem;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 40px rgba(33, 72, 132, 0.2);
+      backdrop-filter: blur(8px);
+      max-width: 26rem;
+    }
+
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      font-size: 1.125rem;
+      font-weight: 600;
+      padding: 0.95rem 2.7rem;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4361ee, #5a189a);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 18px 35px rgba(67, 97, 238, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.45s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 24px 42px rgba(67, 97, 238, 0.38);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #fcbf49;
+      outline-offset: 4px;
+    }
+
+    button.is-hiding {
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 2rem 0 0;
+      font-size: clamp(2.2rem, 2vw + 1.8rem, 3.1rem);
+      color: #1d3557;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    h1.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sparkles {
+      position: relative;
+    }
+
+    .sparkles::before,
+    .sparkles::after {
+      content: "";
+      position: absolute;
+      inset: -2.5rem;
+      background: radial-gradient(circle, rgba(67, 97, 238, 0.28) 0%, rgba(90, 24, 154, 0) 70%);
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .sparkles::after {
+      background: radial-gradient(circle, rgba(252, 191, 73, 0.3) 0%, rgba(252, 191, 73, 0) 70%);
+    }
+
+    .sparkles.is-active::before,
+    .sparkles.is-active::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="sparkles">
+      <div class="button-wrapper">
+        <button id="helloButton" type="button">Click me</button>
+      </div>
+    </div>
+    <h1 id="helloMessage" hidden>Hello World. Time for more Martin</h1>
+  </main>
+
+  <script>
+    const helloButton = document.getElementById("helloButton");
+    const helloMessage = document.getElementById("helloMessage");
+    const sparkles = document.querySelector(".sparkles");
+
+    const revealGreeting = () => {
+      helloButton.classList.add("is-hiding");
+      sparkles.classList.add("is-active");
+
+      window.setTimeout(() => {
+        helloButton.hidden = true;
+        helloMessage.hidden = false;
+        helloMessage.classList.add("is-visible");
+      }, 250);
+    };
+
+    helloButton.addEventListener("click", revealGreeting);
+    helloButton.addEventListener("keyup", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        revealGreeting();
+      }
+    });
+  </script>
+</body>
+</html>
