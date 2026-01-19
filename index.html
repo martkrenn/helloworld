@@ -118,9 +118,15 @@
       <div class="button-wrapper">
         <button id="helloButton" type="button">click here</button>
       </div>
+      <div class="button-wrapper" style="margin-top: 1rem;">
+        <button id="hiButton" type="button">HI</button>
+      </div>
     </div>
     <div id="giphyContainer" hidden>
       <iframe src="https://giphy.com/embed/QxZ0nbcVgMlPlnfZos" width="480" height="270" style="border:none;" allowFullScreen></iframe>
+    </div>
+    <div id="hiMessage" hidden style="margin-top: 1.5rem; padding: 1rem; background: rgba(67, 97, 238, 0.1); border-radius: 1rem; font-size: 1.5rem; font-weight: 600; color: #4361ee;">
+      👋 Hi there! Welcome!
     </div>
   </main>
 
@@ -128,6 +134,8 @@
     const helloButton = document.getElementById("helloButton");
     const giphyContainer = document.getElementById("giphyContainer");
     const sparkles = document.querySelector(".sparkles");
+    const hiButton = document.getElementById("hiButton");
+    const hiMessage = document.getElementById("hiMessage");
 
     const showGiphy = () => {
       helloButton.classList.add("is-hiding");
@@ -139,10 +147,27 @@
       }, 250);
     };
 
+    const showHiMessage = () => {
+      hiButton.classList.add("is-hiding");
+      sparkles.classList.add("is-active");
+
+      window.setTimeout(() => {
+        hiButton.hidden = true;
+        hiMessage.hidden = false;
+      }, 250);
+    };
+
     helloButton.addEventListener("click", showGiphy);
     helloButton.addEventListener("keyup", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         showGiphy();
+      }
+    });
+
+    hiButton.addEventListener("click", showHiMessage);
+    hiButton.addEventListener("keyup", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        showHiMessage();
       }
     });
   </script>
